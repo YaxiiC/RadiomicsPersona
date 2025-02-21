@@ -1,4 +1,4 @@
-# HealKnee-PathologyDetection
+# RadiomicsPersona
 
 ### Task 1: Train a U-Net Model for MRI Image Reconstruction
 
