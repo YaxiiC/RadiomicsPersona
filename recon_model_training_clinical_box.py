@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
 
-from dataset import MRIDataset
+from dataset_3view import MRIDataset
 
 from reconstruction_model import UNet3D
 
