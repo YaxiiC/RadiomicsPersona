@@ -167,7 +167,7 @@ def extract_features_with_pretrained_ddpm(
                                     continue
 
                                 # 5) Extract first-order stats
-                                orig_feats = first_order_and_shape_features(
+                                orig_feats, _ = first_order_and_shape_features(
                                     original_patch,
                                     voxelArrayShift=voxelArrayShift,
                                     pixelSpacing=pixelSpacing
@@ -177,7 +177,7 @@ def extract_features_with_pretrained_ddpm(
                                 orig_feats["loc_j"] = float(j_)
                                 orig_feats["loc_k"] = float(k_)
 
-                                recon_feats = first_order_and_shape_features(
+                                recon_feats, _ = first_order_and_shape_features(
                                     recon_patch,
                                     voxelArrayShift=voxelArrayShift,
                                     pixelSpacing=pixelSpacing
