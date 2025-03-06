@@ -135,10 +135,10 @@ def first_order_and_shape_features(x, voxelArrayShift=0, pixelSpacing=[1.0, 1.0,
                 invalid_features.append(key)
             else:
                 valid_feature_count += 1
-    print(f"[INFO] Number of valid features extracted: {valid_feature_count}")
+    #print(f"[INFO] Number of valid features extracted: {valid_feature_count}")
     if invalid_features:
         print(f"[WARNING] The following features have invalid values: {invalid_features}")
-    print(f"[INFO] Number of valid features extracted: {valid_feature_count}")
+    #print(f"[INFO] Number of valid features extracted: {valid_feature_count}")
 
     return features_dict, feature_names
 
