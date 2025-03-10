@@ -121,7 +121,7 @@ def perform_diffusion_inference(loader, model, save_dir, num_visualizations):
             for img_idx, img in enumerate(corrupted_images):
                 _, D, H, W = img.shape
                 # Calculate cube size as 60% of each dimension
-                d, h, w = int(D * 0.6), int(H * 0.3), int(W * 0.6)
+                d, h, w = int(D * 0.5), int(H * 0.3), int(W * 0.5)
 
                 # Calculate central starting indices
                 x = (D - d) // 2
