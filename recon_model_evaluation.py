@@ -7,7 +7,7 @@ import numpy as np
 from torch.utils.data import DataLoader
 from skimage.metrics import structural_similarity as ssim
 import math
-from dataset import MRIDataset
+from dataset_3view import MRIDataset
 from diffusion_model import DDPM3D
 import pandas as pd
 
