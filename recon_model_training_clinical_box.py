@@ -1189,7 +1189,7 @@ def train_diffusion_model(num_epochs_diffusion=64):
             for i in range(images.size(0)):
                 img = corrupted_images[i]
                 _, D, H, W = img.shape
-                d, h, w = int(D * 0.6), int(H * 0.3), int(W * 0.6)
+                d, h, w = int(D * 0.5), int(H * 0.3), int(W * 0.5)
                 
                 # Calculate central starting indice
                 x = (D - d) // 2
