@@ -14,9 +14,9 @@ import pandas as pd
 # Set device and paths
 device_ids = [0]
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-model_path = '/home/yaxi/HealKnee_ddpm_central/best_diffusion_model.pth'  # Path to the best model weights
-root_dir = "/home/yaxi/MRNet-v1.0_nii"  # Dataset root directory
-visualization_save_path = '/home/yaxi/HealKnee_ddpm_central/diffusion_inference_visualizations'  # Path to save visualizations
+model_path = '.../path/to/best_diffusion_model.pth'  # Path to the best model weights
+root_dir = ".../path/to/MRNet-v1.0_nii"  # Dataset root directory
+visualization_save_path = '.../path/to/diffusion_inference_visualizations'  # Path to save visualizations
 labels_files = {
     'abnormal': os.path.join(root_dir, 'valid-abnormal.csv'),
     'acl': os.path.join(root_dir, 'valid-acl.csv'),
