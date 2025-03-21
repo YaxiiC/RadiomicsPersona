@@ -823,7 +823,7 @@ if __name__ == "__main__":
     from sklearn.model_selection import train_test_split
     device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 
-    model_path = '/home/yaxi/HealKnee_ddpm_central/best_diffusion_model.pth'
+    model_path = '.../path/to/best_diffusion_model.pth'
 
     diffusion_model = DDPM3D().to(device)
     checkpoint = torch.load(model_path, map_location=device)
@@ -831,10 +831,10 @@ if __name__ == "__main__":
     diffusion_model.eval()
     print(f"Loaded pretrained DDPM3D model from: {model_path}")
 
-    visualization_save_path = '/home/yaxi/final_cnn_layer/visualizations'
+    visualization_save_path = '.../path/to/visualizations'
     os.makedirs(visualization_save_path, exist_ok=True)
     
-    model_save_path = '/home/yaxi/final_cnn_layer/acl_2*2*2_clinical'
+    model_save_path = '.../path/to/model'
     os.makedirs(model_save_path, exist_ok=True)   
 
     features_path = os.path.join(model_save_path, "features_1824_acl_clinical.pt")
@@ -844,7 +844,7 @@ if __name__ == "__main__":
     feature_importance_path = os.path.join(model_save_path, "feature_importance_acl_clinical.json")
 
     # 1) Create your training dataset & loader
-    root_dir = "/home/yaxi/MRNet-v1.0_nii"
+    root_dir = ".../path/to/MRNet-v1.0_nii"
     labels_files = {
         'abnormal': os.path.join(root_dir, 'train-abnormal.csv'),
         'acl': os.path.join(root_dir, 'train-acl.csv'),
