@@ -631,11 +631,12 @@ if __name__ == "__main__":
     model_save_path = '.../path/to/model'
     os.makedirs(model_save_path, exist_ok=True)   
 
-    best_model_path = os.path.join(model_save_path, "best_model_acl.pth")
-    test_features_path = os.path.join(model_save_path, "test_features_acl.pt")
-    test_labels_path = os.path.join(model_save_path, "test_labels_acl.pt")
+    best_model_path = os.path.join(model_save_path, "best_cnn_lr_mask_model_softmax_2*2_acl_clinical.pth")
+    test_features_path = os.path.join(model_save_path, "test_features_1824_acl_clinical.pt")
+    test_labels_path = os.path.join(model_save_path, "test_labels_3_acl_clinical.pt")
     #thresholds_norm_path = os.path.join(model_save_path, "thresholds_and_normalization_softmax_2*2.json")
     norm_stats_path = os.path.join(model_save_path, "normalization_stats_acl_clinical.json")
+
  
     with open(norm_stats_path, 'r') as f:
         norm_data = json.load(f)
