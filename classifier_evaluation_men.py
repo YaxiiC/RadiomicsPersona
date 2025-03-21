@@ -599,7 +599,7 @@ if __name__ == "__main__":
     from sklearn.model_selection import train_test_split
     device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 
-    model_path = '/home/yaxi/HealKnee_ddpm_central/best_diffusion_model.pth'
+    model_path = '.../path/to/best_diffusion_model.pth'
 
     diffusion_model = DDPM3D().to(device)
     checkpoint = torch.load(model_path, map_location=device)
@@ -607,15 +607,15 @@ if __name__ == "__main__":
     diffusion_model.eval()
     print(f"Loaded pretrained DDPM3D model from: {model_path}")
 
-    visualization_save_path = '/home/yaxi/final_cnn_layer/visualizations'
+    visualization_save_path = '.../path/to/visualizations'
     os.makedirs(visualization_save_path, exist_ok=True)
     
-    model_save_path = '/home/yaxi/final_cnn_layer/men_2*2*2_clinical'
+    model_save_path = '.../path/to/model'
     os.makedirs(model_save_path, exist_ok=True)   
 
-    best_model_path = os.path.join(model_save_path, "best_cnn_lr_mask_model_softmax_2*2_men_clinical.pth")
-    test_features_path = os.path.join(model_save_path, "test_features_1824_men_clinical.pt")
-    test_labels_path = os.path.join(model_save_path, "test_labels_3_men_clinical.pt")
+    best_model_path = os.path.join(model_save_path, "best_model_men.pth")
+    test_features_path = os.path.join(model_save_path, "test_features.pt")
+    test_labels_path = os.path.join(model_save_path, "test_labels.pt")
     #thresholds_norm_path = os.path.join(model_save_path, "thresholds_and_normalization_softmax_2*2.json")
     norm_stats_path = os.path.join(model_save_path, "normalization_stats_men_clinical.json")
  
@@ -628,7 +628,7 @@ if __name__ == "__main__":
     
     #best_thresholds = 0.5
 
-    root_dir = "/home/yaxi/MRNet-v1.0_nii"
+    root_dir = ".../path/to/MRNet-v1.0_nii"
     
     labels_files_test = {
         'abnormal': os.path.join(root_dir, 'valid-abnormal.csv'),
@@ -692,7 +692,7 @@ if __name__ == "__main__":
     combined_model.load_state_dict(torch.load(best_model_path, map_location='cuda:1'))
     combined_model.to(device)
 
-    output_log_file = os.path.join(model_save_path, "evaluation_metrics_softmax_2*2_men_clinical.txt")
+    output_log_file = os.path.join(model_save_path, "evaluation_men.txt")
     
     cross_validate_model(combined_model, test_combined_dataset, device, output_log_file, n_splits=5)
 
