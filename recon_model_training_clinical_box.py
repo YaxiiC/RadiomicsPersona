@@ -1029,7 +1029,7 @@ model_save_frequency = 1  # Save models every 50 epochs
 max_models_to_keep = 5  # Maximum number of models to keep
 target_size = (32, 128, 128)
 
-root_dir = "/home/yaxi/MRNet-v1.0_nii"  
+root_dir = ".../path/to/MRNet-v1.0_nii"  
 
 
 labels_files = {
@@ -1037,12 +1037,12 @@ labels_files = {
         'acl': os.path.join(root_dir, 'train-acl.csv'),
         'meniscus': os.path.join(root_dir, 'train-meniscus.csv')
     }
-model_save_path = '/home/yaxi/HealKnee_ddpm_central'
+model_save_path = '.../path/to/HealKnee_ddpm_central'
 
 if not os.path.exists(model_save_path):
     os.makedirs(model_save_path)
 
-visualization_save_path = '/home/yaxi/HealKnee_ddpm_central/visualizations'
+visualization_save_path = '.../path/to/HealKnee_ddpm_central/visualizations'
 
 if not os.path.exists(visualization_save_path):
     os.makedirs(visualization_save_path)
