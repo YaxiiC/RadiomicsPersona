@@ -615,9 +615,9 @@ if __name__ == "__main__":
     model_save_path = '.../path/to/model'
     os.makedirs(model_save_path, exist_ok=True)   
 
-    best_model_path = os.path.join(model_save_path, "best_model_abn.pth")
-    test_features_path = os.path.join(model_save_path, "test_features_abn.pt")
-    test_labels_path = os.path.join(model_save_path, "test_labels_abn.pt")
+    best_model_path = os.path.join(model_save_path, "best_cnn_lr_mask_model_softmax_2*2_abn_clinical.pth")
+    test_features_path = os.path.join(model_save_path, "test_features_1824_abn_clinical.pt")
+    test_labels_path = os.path.join(model_save_path, "test_labels_3_abn_clinical.pt")
     #thresholds_norm_path = os.path.join(model_save_path, "thresholds_and_normalization_softmax_2*2.json")
     norm_stats_path = os.path.join(model_save_path, "normalization_stats_abn_clinical.json")
  
@@ -626,10 +626,7 @@ if __name__ == "__main__":
         means = torch.tensor(norm_data["means"], dtype=torch.float32, device=device)
         stds  = torch.tensor(norm_data["stds"], dtype=torch.float32, device=device)
 
-    #selected_features_mask = np.load(os.path.join(model_save_path, "selected_features_mask_men.npy"))
     
-    #best_thresholds = 0.5
-
     root_dir = ".../path/to/MRNet-v1.0_nii"
     
     labels_files_test = {
