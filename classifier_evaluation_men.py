@@ -613,9 +613,9 @@ if __name__ == "__main__":
     model_save_path = '.../path/to/model'
     os.makedirs(model_save_path, exist_ok=True)   
 
-    best_model_path = os.path.join(model_save_path, "best_model_men.pth")
-    test_features_path = os.path.join(model_save_path, "test_features.pt")
-    test_labels_path = os.path.join(model_save_path, "test_labels.pt")
+    best_model_path = os.path.join(model_save_path, "best_cnn_lr_mask_model_softmax_2*2_men_clinical.pth")
+    test_features_path = os.path.join(model_save_path, "test_features_1824_men_clinical.pt")
+    test_labels_path = os.path.join(model_save_path, "test_labels_3_men_clinical.pt")
     #thresholds_norm_path = os.path.join(model_save_path, "thresholds_and_normalization_softmax_2*2.json")
     norm_stats_path = os.path.join(model_save_path, "normalization_stats_men_clinical.json")
  
