@@ -615,9 +615,9 @@ if __name__ == "__main__":
     model_save_path = '.../path/to/model'
     os.makedirs(model_save_path, exist_ok=True)   
 
-    best_model_path = os.path.join(model_save_path, "best_cnn_lr_mask_model_softmax_2*2_abn_clinical.pth")
-    test_features_path = os.path.join(model_save_path, "test_features_1824_abn_clinical.pt")
-    test_labels_path = os.path.join(model_save_path, "test_labels_3_abn_clinical.pt")
+    best_model_path = os.path.join(model_save_path, "best_model_abn.pth")
+    test_features_path = os.path.join(model_save_path, "test_features_abn.pt")
+    test_labels_path = os.path.join(model_save_path, "test_labels_abn.pt")
     #thresholds_norm_path = os.path.join(model_save_path, "thresholds_and_normalization_softmax_2*2.json")
     norm_stats_path = os.path.join(model_save_path, "normalization_stats_abn_clinical.json")
  
@@ -694,7 +694,7 @@ if __name__ == "__main__":
     combined_model.load_state_dict(torch.load(best_model_path, map_location='cuda:1'))
     combined_model.to(device)
 
-    output_log_file = os.path.join(model_save_path, "evaluation_metrics_softmax_2*2_abn_clinical.txt")
+    output_log_file = os.path.join(model_save_path, "evaluation_abn.txt")
     
     cross_validate_model(combined_model, test_combined_dataset, device, output_log_file, n_splits=5)
 
