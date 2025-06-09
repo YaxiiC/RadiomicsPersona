@@ -18,6 +18,7 @@ class GlobalMaskedFeatureSelector(nn.Module):
         resnet3d = models_video.r3d_18(weights=models_video.R3D_18_Weights.DEFAULT)
         self.resnet = nn.Sequential(*list(resnet3d.children())[:-1])
 
+        ###!!!### please note that the dummy input only used once during the initialization; not part of training, not passed to forward(), and does not affect actual predictions.
         dummy_input = torch.randn(1, in_channels, 32, 128, 128)  # Simulated input
         with torch.no_grad():
             feature_dim = self.resnet(dummy_input).view(1, -1).size(1)  # Flatten and get size
