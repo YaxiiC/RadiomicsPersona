@@ -915,12 +915,23 @@ if __name__ == "__main__":
         print(f"[INFO] Features saved to: {features_path}")
         print(f"[INFO] Labels saved to: {labels_path}")
 
-    #check_for_nans_or_infs(features_1824, "features_1824")
-    #check_for_nans_or_infs(labels_3, "labels_3")
-    means = features_1824.mean(dim=0, keepdim=True)
-    stds  = features_1824.std(dim=0, keepdim=True)
+    train_mri_dataset = torch.utils.data.Subset(train_mri_dataset, valid_indices)
+    print(f"[INFO] Filtered dataset length: {len(train_mri_dataset)}")
+
+    labels_acl = labels_3[:, 1].unsqueeze(1)
+
+    train_indices, val_indices = train_test_split(
+        np.arange(len(labels_acl)),
+        test_size=0.3,  # 25% for validation
+        stratify=labels_acl.cpu().numpy(),
+        random_state=42
+    )
+
+    # Compute normalization statistics using only the training split to avoid data leakage
+    train_features = features_1824[train_indices]
+    means = train_features.mean(dim=0, keepdim=True)
+    stds  = train_features.std(dim=0, keepdim=True)
     features_1824 = (features_1824 - means) / (stds + 1e-8)
-    #check_for_nans_or_infs(features_1824, "features_1824")
 
     norm_stats = {
         "means": means.squeeze().tolist(),
@@ -933,18 +944,7 @@ if __name__ == "__main__":
     else:
         print(f"[INFO] Normalization stats already exist: {norm_stats_path}")
 
-    train_mri_dataset = torch.utils.data.Subset(train_mri_dataset, valid_indices)
-    print(f"[INFO] Filtered dataset length: {len(train_mri_dataset)}")
     combined_dataset = CombinedMRIFeatureDataset(train_mri_dataset, features_1824)
-
-    labels_acl = labels_3[:, 1].unsqueeze(1) 
-
-    train_indices, val_indices = train_test_split(
-        np.arange(len(labels_acl)),
-        test_size=0.3,  # 25% for validation
-        stratify=labels_acl.cpu().numpy(),
-        random_state=42
-    )
 
     # Create subset datasets
     train_ds = torch.utils.data.Subset(combined_dataset, train_indices)
