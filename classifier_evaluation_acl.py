@@ -634,7 +634,7 @@ if __name__ == "__main__":
     best_model_path = os.path.join(model_save_path, "best_cnn_lr_mask_model_softmax_2*2_acl_clinical.pth")
     test_features_path = os.path.join(model_save_path, "test_features_1824_acl_clinical.pt")
     test_labels_path = os.path.join(model_save_path, "test_labels_3_acl_clinical.pt")
-    #thresholds_norm_path = os.path.join(model_save_path, "thresholds_and_normalization_softmax_2*2.json")
+    thresholds_norm_path = os.path.join(model_save_path, "thresholds_and_normalization_softmax_2*2_acl_clinical.json")
     norm_stats_path = os.path.join(model_save_path, "normalization_stats_acl_clinical.json")
 
  
@@ -642,6 +642,14 @@ if __name__ == "__main__":
         norm_data = json.load(f)
         means = torch.tensor(norm_data["means"], dtype=torch.float32, device=device)
         stds  = torch.tensor(norm_data["stds"], dtype=torch.float32, device=device)
+
+    threshold = None
+    if os.path.exists(thresholds_norm_path):
+        with open(thresholds_norm_path, 'r') as f:
+            thresholds_data = json.load(f)
+        if thresholds_data.get("thresholds"):
+            threshold = float(thresholds_data["thresholds"][0])
+            print(f"[INFO] Loaded threshold from training stats: {threshold:.3f}")
 
     #selected_features_mask = np.load(os.path.join(model_save_path, "selected_features_mask_men.npy"))
     
@@ -712,8 +720,21 @@ if __name__ == "__main__":
     combined_model.to(device)
 
     output_log_file = os.path.join(model_save_path, "evaluation_acl.txt")
-    
-    cross_validate_model(combined_model, test_combined_dataset, device, output_log_file, n_splits=5)
+
+    print("[INFO] Evaluating on test set without retraining to avoid data leakage...")
+    metrics_dict = evaluate_model(
+        model=combined_model,
+        loader=test_loader,
+        device=device,
+        threshold=threshold if threshold is not None else 0.47,
+        save_path=os.path.join(model_save_path, "patient_feature_importance.json")
+    )
+
+    with open(output_log_file, "w") as f:
+        f.write("Evaluation Results (ACL):\n")
+        for key, value in metrics_dict.items():
+            if key != "label_name":
+                f.write(f"{key}: {value:.4f}\n")
 
 
     #print("[INFO] Evaluating on test set...")
