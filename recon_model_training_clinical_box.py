@@ -1049,8 +1049,12 @@ if not os.path.exists(visualization_save_path):
 
 
 # Dataset and DataLoader for Reconstruction Model
-train_dataset_recon = MRIDataset(root_dir, labels_files, phase='train', target_size=target_size)
-train_dataset_recon.labels_abnormal = train_dataset_recon.labels_abnormal[train_dataset_recon.labels_abnormal['Label'] == 0]
+# Train the DDPM strictly on healthy MRNet cases from the official training split.
+train_dataset_recon_full = MRIDataset(root_dir, labels_files, phase='train', target_size=target_size)
+healthy_train_indices = train_dataset_recon_full.labels_abnormal.index[
+    train_dataset_recon_full.labels_abnormal['Label'] == 0
+].tolist()
+train_dataset_recon = torch.utils.data.Subset(train_dataset_recon_full, healthy_train_indices)
 train_loader_recon = DataLoader(train_dataset_recon, batch_size=batch_size, shuffle=True)
 
 

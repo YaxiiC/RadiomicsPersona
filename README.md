@@ -27,4 +27,7 @@ To ensure accurate alignment and transformation of images, we use **NiftyReg**, 
 
 ---
 
+### Experimental protocol
+Classification models are trained jointly end-to-end with Adam and OneCycleLR using a maximum learning rate of `5e-4` and weight decay of `1e-2`; early stopping is based on validation F1. Classification experiments use five repeated runs with different random initialisations while keeping the official MRNet dataset split unchanged, and reported classification values are mean ± standard deviation across those runs. The DDPM is trained strictly on healthy MRNet cases from the training split only. For DDPM reconstruction experiments, mean ± standard deviation values are computed at the case level.
+
 For further details on running experiments, data preprocessing, and model training, refer to the respective scripts and documentation provided in the repository.

@@ -478,8 +478,8 @@ def train_cnn_with_masking(
     val_loader, 
     device='cuda',
     num_epochs=10000,
-    lr=1e-3,
-    weight_decay=1e-4,
+    lr=1e-4,
+    weight_decay=1e-2,
     patience=1000,
     model_save_path='combined_model_abn.pth',
     update_threshold_every=5,
@@ -565,6 +565,7 @@ def train_cnn_with_masking(
             loss = criterion(logits, smoothed_labels)
             loss.backward()
             optimizer.step()
+            scheduler.step()
 
             running_loss += loss.item()
 
@@ -689,11 +690,7 @@ def train_cnn_with_masking(
             #global_mask = model.cnn_model.global_mask.detach().cpu().numpy()
             #print(f"[DEBUG] Global mask stats: mean={global_mask.mean():.4f}, "
                   #f"std={global_mask.std():.4f}, min={global_mask.min():.4f}, max={global_mask.max():.4f}")
-        # Ensure scheduler updates even if loss stagnates
-        if val_loss >= best_val_f1:
-            scheduler.step(val_loss + 1e-6)  # Small epsilon to ensure step is called
-        else:
-            scheduler.step(val_loss)
+        # OneCycleLR is stepped once per optimizer update during training.
 
     
         if epoch >= 10 and val_f1 > best_val_f1:
